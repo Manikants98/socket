@@ -1,12 +1,13 @@
-const http = require("http");
 const { Server } = require("socket.io");
+const http = require("http");
 
-const server = http.createServer((req, res) => {
-  res.writeHead(200);
-  res.end("socket.io server");
+const httpServer = http.createServer();
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*", // Allow requests from all origins
+    methods: ["GET", "POST", "OPTIONS"], // Allow these HTTP methods
+  },
 });
-
-const io = new Server(server);
 
 io.on("connection", (socket) => {
   console.log("User connected");
@@ -16,7 +17,8 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = 3001;
-server.listen(process.env.PORT || PORT, () => {
+const PORT = process.env.PORT || 3001;
+
+httpServer.listen(PORT, () => {
   console.log(`Socket.io server running on port ${PORT}`);
 });
