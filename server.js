@@ -4,8 +4,8 @@ const http = require("http");
 const httpServer = http.createServer();
 const io = new Server(httpServer, {
   cors: {
-    origin: "*", // Allow requests from all origins
-    methods: ["GET", "POST", "OPTIONS"], // Allow these HTTP methods
+    origin: "*",
+    methods: ["GET", "POST", "OPTIONS"],
   },
 });
 
